@@ -11,7 +11,7 @@ typedef StreamOperationFunction<T> = Stream<T> Function();
 /// Runs a stream operation with safety handling.
 ///
 /// Transforms any errors in the stream into [CustomError] objects.
-/// 
+///
 /// @param operation The stream operation to run safely.
 /// @param onError Optional adapter to convert exceptions to custom errors.
 /// @param logLevel Optional log level for error logging.

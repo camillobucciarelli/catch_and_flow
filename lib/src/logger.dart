@@ -1,4 +1,4 @@
-import 'package:catch_and_flow/catch_and_flow.dart';
+import '../catch_and_flow.dart';
 
 /// Enumeration defining the available log levels.
 ///

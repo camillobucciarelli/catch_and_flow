@@ -9,7 +9,7 @@ typedef FutureOperationFunction<T> = Future<T> Function();
 /// Runs a future operation with safety handling.
 ///
 /// Catches any exceptions and transforms them into [CustomError] objects.
-/// 
+///
 /// @param operation The future operation to run safely.
 /// @param onError Optional adapter to convert exceptions to custom errors.
 /// @param logLevel Optional log level for error logging.
@@ -31,7 +31,7 @@ Future<T> runSafetyFuture<T>(
 /// Catches any exceptions and returns null if an error occurs.
 /// This is useful when you want to handle errors by returning null
 /// instead of propagating the error.
-/// 
+///
 /// @param operation The future operation to run safely.
 /// @param logLevel Optional log level for error logging.
 /// @return A [Future] that returns null on errors.

@@ -17,7 +17,7 @@ Add the package to your `pubspec.yaml`:
 
 ```yaml
 dependencies:
-  catch_and_flow: ^0.0.1
+  catch_and_flow: ^1.0.0
 ```
 
 Configure a logger before using the package:

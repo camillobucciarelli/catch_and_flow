@@ -27,16 +27,10 @@ extension FutureExtension<T> on Future<T> {
     logDebug('FutureExtension.when: Operation started', logLevel);
     progress?.call();
     return then((value) {
-      logDebug(
-        'FutureExtension.when: Operation completed successfully with value: $value',
-        logLevel,
-      );
+      logDebug('FutureExtension.when: Operation completed successfully with value: $value', logLevel);
       success?.call(value);
     }).catchError((e) {
-      logDebug(
-        'FutureExtension.when: Operation failed with error: $e',
-        logLevel,
-      );
+      logDebug('FutureExtension.when: Operation failed with error: $e', logLevel);
       return onErrorHandler(error, logLevel)(e);
     });
   }
