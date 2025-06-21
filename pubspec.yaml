@@ -1,6 +1,7 @@
 name: catch_and_flow
 description: "A Flutter package for simplified and type-safe error handling in synchronous and asynchronous operations with a functional programming approach."
 version: 0.1.0
+homepage: "https://github.com/camillobucciarelli/catch_and_flow"
 
 environment:
   sdk: ^3.8.1
