@@ -16,7 +16,11 @@ typedef StreamOperationFunction<T> = Stream<T> Function();
 /// @param onError Optional adapter to convert exceptions to custom errors.
 /// @param logLevel Optional log level for error logging.
 /// @return A broadcast stream that transforms errors into [CustomError] objects.
-Stream<T> runSafetyStream<T>(StreamOperationFunction<T> operation, {CustomErrorAdapter? onError, LogLevel? logLevel}) {
+Stream<T> runSafetyStream<T>(
+  StreamOperationFunction<T> operation, {
+  CustomErrorAdapter? onError,
+  LogLevel? logLevel,
+}) {
   return operation().asBroadcastStream().handleError((e, st) {
     return onErrorHandler(onError, logLevel)(e);
   });
@@ -30,7 +34,10 @@ Stream<T> runSafetyStream<T>(StreamOperationFunction<T> operation, {CustomErrorA
 /// @param operation The stream operation to run safely.
 /// @param logLevel Optional log level for error logging.
 /// @return A broadcast stream that emits null values on errors instead of breaking the stream.
-Stream<T?> runSafetyStreamNullable<T>(StreamOperationFunction<T> operation, {LogLevel? logLevel}) {
+Stream<T?> runSafetyStreamNullable<T>(
+  StreamOperationFunction<T> operation, {
+  LogLevel? logLevel,
+}) {
   // Create a StreamController to manage the output stream
   final controller = StreamController<T?>.broadcast();
 

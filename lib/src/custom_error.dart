@@ -24,7 +24,8 @@ sealed class CustomError extends Error with EquatableMixin {
   /// Creates a generic error from any exception.
   ///
   /// A convenience factory constructor to create a [GenericError] from an exception.
-  static CustomError genericFromException(dynamic exception) => ErrorFromException(exception: exception as Exception);
+  static CustomError genericFromException(dynamic exception) =>
+      ErrorFromException(exception: exception as Exception);
 }
 
 /// Represents a general error with a custom code and message.
@@ -45,5 +46,6 @@ class ErrorFromException extends CustomError {
   /// Creates a new [ErrorFromException] wrapping the given exception.
   ///
   /// @param exception The exception to convert into a [CustomError].
-  ErrorFromException({required Exception exception}) : super(code: 'exception', message: exception.toString());
+  ErrorFromException({required Exception exception})
+    : super(code: 'exception', message: exception.toString());
 }

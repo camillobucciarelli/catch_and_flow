@@ -9,6 +9,11 @@ typedef Result<T> = (CustomError? error, T? value);
 
 /// Factory methods for creating [Result] objects.
 class Results {
+  /// Private constructor to prevent instantiation.
+  ///
+  /// This class only provides static factory methods and should not be instantiated.
+  Results._();
+  
   /// Creates a success result with the given value.
   static Result<T> success<T>(T value) => (null, value);
 

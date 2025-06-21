@@ -1,6 +1,10 @@
 import '../../catch_and_flow.dart';
 import 'error_catcher.dart';
 
+/// Type definition for a synchronous function that returns a value of type [T].
+///
+/// Used as a parameter type for functions that need to wrap synchronous operations.
+/// The function takes no parameters and returns a value of type [T].
 typedef SyncOperationFunction<T> = T Function();
 
 /// Runs a synchronous operation with safety handling.
@@ -12,7 +16,11 @@ typedef SyncOperationFunction<T> = T Function();
 /// @param onError Optional adapter to convert exceptions to custom errors.
 /// @param logLevel Optional log level for error logging.
 /// @return A [Result<T>] containing either the operation result or a [CustomError].
-Result<T> runSafetySync<T>(SyncOperationFunction<T> operation, {CustomErrorAdapter? onError, LogLevel? logLevel}) {
+Result<T> runSafetySync<T>(
+  SyncOperationFunction<T> operation, {
+  CustomErrorAdapter? onError,
+  LogLevel? logLevel,
+}) {
   try {
     return Results.success(operation());
   } catch (e) {
@@ -26,7 +34,10 @@ Result<T> runSafetySync<T>(SyncOperationFunction<T> operation, {CustomErrorAdapt
 /// @param operation The synchronous operation to run safely.
 /// @param logLevel Optional log level for error logging.
 /// @return A [Result<T?>] containing either the operation result (which may be null) or a [CustomError].
-T? runSafetySyncNullable<T>(SyncOperationFunction<T> operation, {LogLevel? logLevel}) {
+T? runSafetySyncNullable<T>(
+  SyncOperationFunction<T> operation, {
+  LogLevel? logLevel,
+}) {
   try {
     return operation(); // Success result
   } catch (e) {

@@ -35,7 +35,10 @@ Future<T> runSafetyFuture<T>(
 /// @param operation The future operation to run safely.
 /// @param logLevel Optional log level for error logging.
 /// @return A [Future] that returns null on errors.
-Future<T?> runSafetyFutureNullable<T>(FutureOperationFunction<T?> operation, {LogLevel? logLevel}) async {
+Future<T?> runSafetyFutureNullable<T>(
+  FutureOperationFunction<T?> operation, {
+  LogLevel? logLevel,
+}) async {
   try {
     return await operation();
   } catch (e) {

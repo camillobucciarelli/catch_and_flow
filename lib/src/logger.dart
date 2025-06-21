@@ -30,6 +30,11 @@ enum LogLevel {
 /// This class allows users to implement custom logging behavior by extending this class
 /// and providing their own implementations of the logging methods.
 abstract class CatchAndFlowLogger {
+  /// Creates a new instance of a [CatchAndFlowLogger].
+  ///
+  /// Implementations should provide their own constructor logic if needed.
+  /// This abstract class doesn't enforce any specific constructor implementation.
+  const CatchAndFlowLogger();
   /// Logs an error message with optional error object and stack trace.
   ///
   /// @param message The error message or object to log.
@@ -59,7 +64,12 @@ abstract class CatchAndFlowLogger {
 /// @param message The error message or object to log.
 /// @param error Optional error object providing additional information.
 /// @param stackTrace Optional stack trace associated with the error.
-void logError(dynamic message, [LogLevel? logLevel, dynamic error, StackTrace? stackTrace]) {
+void logError(
+  dynamic message, [
+  LogLevel? logLevel,
+  dynamic error,
+  StackTrace? stackTrace,
+]) {
   if ((logLevel != null && logLevel.index >= LogLevel.error.index) ||
       CatchAndFlow.getLogLevel().index >= LogLevel.error.index) {
     CatchAndFlow.getLogger()?.logError(message, error, stackTrace);

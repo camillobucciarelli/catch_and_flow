@@ -32,7 +32,10 @@ extension ResultExtension<T> on Result<T> {
   /// @param fnSuccess Function to execute if the result is a success.
   /// @param fnFailure Function to execute if the result is a failure.
   /// @return The value returned by either fnSuccess or fnFailure.
-  R when<R>(R Function(T value) fnSuccess, R Function(CustomError error) fnFailure) {
+  R when<R>(
+    R Function(T value) fnSuccess,
+    R Function(CustomError error) fnFailure,
+  ) {
     if (isSuccess) {
       return fnSuccess($2 as T);
     } else {
