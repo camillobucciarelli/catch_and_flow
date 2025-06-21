@@ -35,6 +35,7 @@ abstract class CatchAndFlowLogger {
   /// Implementations should provide their own constructor logic if needed.
   /// This abstract class doesn't enforce any specific constructor implementation.
   const CatchAndFlowLogger();
+
   /// Logs an error message with optional error object and stack trace.
   ///
   /// @param message The error message or object to log.

@@ -13,7 +13,7 @@ class Results {
   ///
   /// This class only provides static factory methods and should not be instantiated.
   Results._();
-  
+
   /// Creates a success result with the given value.
   static Result<T> success<T>(T value) => (null, value);
 
