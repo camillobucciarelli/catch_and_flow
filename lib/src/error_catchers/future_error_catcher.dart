@@ -22,7 +22,9 @@ Future<T> runSafetyFuture<T>(
   try {
     return await operation();
   } catch (e) {
-    return onErrorHandler(onError, logLevel)(e);
+    return Future<T>.error(
+      onErrorHandler(e, onError: onError, logLevel: logLevel),
+    );
   }
 }
 
@@ -42,6 +44,6 @@ Future<T?> runSafetyFutureNullable<T>(
   try {
     return await operation();
   } catch (e) {
-    return errorToNullHandler(logLevel)(e);
+    return errorToNullHandler(e, logLevel: logLevel);
   }
 }

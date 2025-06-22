@@ -5,6 +5,15 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.0.6] - 2025-06-22
+
+### Documentation Updates
+
+- Enhanced documentation for synchronous error handling utilities
+- Added detailed examples for `runSafetySync` and `runSafetySyncNullable` functions
+- Added practical code examples for `SyncOperationFunction` usage
+- Improved clarity and completeness of API documentation
+
 ## [1.0.5] - 2025-06-22
 
 ### Fixed
