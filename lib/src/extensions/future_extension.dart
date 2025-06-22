@@ -36,7 +36,8 @@ extension FutureExtension<T> on Future<T> {
         'FutureExtension.when: Operation failed with error: $e',
         logLevel,
       );
-      error?.call(e);
+      final customError = e is CustomError ? e : CustomError.fromThrowable(e);
+      error?.call(customError);
     });
   }
 }

@@ -36,7 +36,7 @@ class CatchAndFlow {
   ///
   /// This must be called before using any of the log functions or running any safety operations.
   /// @param logger The custom logger implementation to use.
-  static void setLogger(CatchAndFlowLogger? logger) {
+  static void setLogger(CatchAndFlowLogger logger) {
     _logger = logger;
   }
 
@@ -59,6 +59,6 @@ class CatchAndFlow {
   ///
   /// @return The current logger implementation.
   static CatchAndFlowLogger? getLogger() {
-    return _logger!;
+    return _logger;
   }
 }

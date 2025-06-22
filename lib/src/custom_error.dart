@@ -40,11 +40,17 @@ abstract class CustomError extends Error with EquatableMixin {
   @override
   List<Object?> get props => [code, message];
 
-  /// Creates a generic error from any exception.
+  /// Creates a generic error from any exception or error.
   ///
-  /// A convenience factory constructor to create a [GenericError] from an exception.
-  static CustomError genericFromException(dynamic exception) =>
-      ErrorFromException(exception: exception as Exception);
+  /// A convenience factory constructor to create a [GenericError] from an exception or error.
+  /// This method safely handles both Exception and Error types, as well as other throwables.
+  static CustomError fromThrowable(dynamic exception) {
+    if (exception is Exception) {
+      return ErrorFromException(exception: exception);
+    } else {
+      return GenericError(message: exception.toString());
+    }
+  }
 }
 
 /// Represents a general error with a custom code and message.
