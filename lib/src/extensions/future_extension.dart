@@ -3,7 +3,6 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 
 import '../../catch_and_flow.dart';
-import '../error_catchers/error_catcher.dart';
 import 'extensions.dart';
 
 /// Extensions on [Future] to provide simplified error handling and flow control.
@@ -37,7 +36,7 @@ extension FutureExtension<T> on Future<T> {
         'FutureExtension.when: Operation failed with error: $e',
         logLevel,
       );
-      return onErrorHandler(error, logLevel)(e);
+      error?.call(e);
     });
   }
 }

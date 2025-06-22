@@ -11,19 +11,16 @@ typedef CustomErrorAdapter = CustomError Function(dynamic e);
 /// @param error The callback to invoke with the transformed error.
 /// @param logLevel Optional log level override for this specific error handler.
 /// @return A function that handles errors by converting them to [CustomError] objects.
-Function onErrorHandler(
-  void Function(CustomError)? error,
-  LogLevel? logLevel,
-) => (dynamic e) {
-  logError(e, logLevel);
-  if (e is CustomError) {
-    error?.call(e);
-    return Future.error(e);
-  }
-  final customError = CustomError.genericFromException(e);
-  error?.call(customError);
-  return Future.error(customError);
-};
+Function onErrorHandler(CustomErrorAdapter? onError, LogLevel? logLevel) =>
+    (dynamic e) {
+      logError(e, logLevel);
+      final error = onError?.call(e) ?? e;
+      if (error is CustomError) {
+        return Future.error(error);
+      }
+      final customError = CustomError.genericFromException(error);
+      return Future.error(customError);
+    };
 
 /// Creates an error handler function that converts errors to null values.
 ///
