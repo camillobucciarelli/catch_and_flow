@@ -1,6 +1,6 @@
 name: catch_and_flow
 description: A Flutter package for simplified and type-safe error handling in synchronous and asynchronous operations with a functional programming approach.
-version: 1.0.6
+version: 1.0.7
 homepage: https://github.com/camillobucciarelli/catch_and_flow
 
 environment:
@@ -15,4 +15,4 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  flutter_lints: ^5.0.0
+  flutter_lints: ^6.0.0
