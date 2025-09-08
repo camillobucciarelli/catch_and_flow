@@ -51,7 +51,7 @@ CustomError onErrorHandler(
   CustomErrorAdapter? onError,
   LogLevel? logLevel,
 }) {
-  logError(e, logLevel, e, StackTrace.current);
+  logError(e, logLevel, e, e.stackTrace ?? StackTrace.current);
   final error = onError?.call(e) ?? e;
   if (error is CustomError) {
     return error;
@@ -89,6 +89,6 @@ CustomError onErrorHandler(
 /// @param logLevel Optional log level override for this specific error handler.
 /// @return A function that handles errors by logging them and returning null.
 T? errorToNullHandler<T>(dynamic e, {LogLevel? logLevel}) {
-  logError(e, logLevel, e, StackTrace.current);
+  logError(e, logLevel, e, e.stackTrace ?? StackTrace.current);
   return null;
 }

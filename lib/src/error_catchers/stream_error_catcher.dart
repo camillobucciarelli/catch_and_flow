@@ -22,7 +22,7 @@ Stream<T> runSafetyStream<T>(
   LogLevel? logLevel,
 }) {
   return operation().asBroadcastStream().handleError((e, st) {
-    return onErrorHandler(e, onError: onError, logLevel: logLevel);
+    throw onErrorHandler(e, onError: onError, logLevel: logLevel);
   });
 }
 
