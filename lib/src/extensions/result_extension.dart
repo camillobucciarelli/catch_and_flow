@@ -1,45 +1,49 @@
 import '../../catch_and_flow.dart';
+import 'extensions.dart';
 
-/// Extension methods for the [Result] type.
+/// Estensioni per il tipo [Result] per una gestione più comoda dei risultati.
 extension ResultExtension<T> on Result<T> {
-  /// Whether this result represents a success (has a value and no error).
-  ///
-  /// Returns `true` if this result contains a value and no error.
+  /// Restituisce `true` se questo risultato rappresenta un successo (ha un valore e nessun $1e).
   bool get isSuccess => $1 == null && $2 != null;
 
-  /// Whether this result represents a failure (has an error and no value).
-  ///
-  /// Returns `true` if this result contains an error and no value.
+  /// Restituisce `true` se questo risultato rappresenta un fallimento (ha un $1e e nessun valore).
   bool get isFailure => $1 != null && $2 == null;
 
-  /// Returns the success value if this is a success, otherwise returns null.
+  /// Restituisce il valore di successo se presente, altrimenti `null`.
   ///
-  /// This is a convenient way to access the value directly, but requires null checking.
-  /// Consider using [when] for more type-safe access.
-  T? get valueOrNull => $2;
+  /// Usa [when] o [map] per una gestione più sicura e senza null.
+  T? get $2OrNull => $2;
 
-  /// Returns the error if this is a failure, otherwise returns null.
+  /// Restituisce l'$1e se presente, altrimenti `null`.
   ///
-  /// This is a convenient way to access the error directly, but requires null checking.
-  /// Consider using [when] for more type-safe access.
-  CustomError? get errorOrNull => $1;
+  /// Usa [when] o [map] per gestire esplicitamente il ramo $1e.
+  CustomError? get $1OrNull => $1;
 
-  /// Transforms the result using two callback functions.
+  /// Mappa il [Result] in un singolo valore fornendo handler per entrambi i casi.
   ///
-  /// This is the recommended way to handle both success and failure cases
-  /// in a type-safe manner without requiring null checks.
+  /// - [success]: chiamato con il valore se successo.
+  /// - [$1]: chiamato con il [Custom$1] se fallimento.
   ///
-  /// @param fnSuccess Function to execute if the result is a success.
-  /// @param fnFailure Function to execute if the result is a failure.
-  /// @return The value returned by either fnSuccess or fnFailure.
-  R when<R>(
-    R Function(T value) fnSuccess,
-    R Function(CustomError error) fnFailure,
-  ) {
+  /// Restituisce il valore prodotto dall'handler invocato.
+  R map<R>({
+    required R Function(T? value) success,
+    required R Function(CustomError error) error,
+  }) {
     if (isSuccess) {
-      return fnSuccess($2 as T);
+      return success($2);
+    }
+    return error($1!);
+  }
+
+  /// Esegue la callback appropriata in base allo stato del [Result].
+  ///
+  /// - [success]: callback opzionale chiamata con il valore di successo.
+  /// - [error]: callback opzionale chiamata con il [CustomError].
+  void when({SuccessCallback<T?>? success, ErrorCallback? error}) {
+    if (isSuccess) {
+      success?.call($2);
     } else {
-      return fnFailure($1!);
+      error?.call($1!);
     }
   }
 }

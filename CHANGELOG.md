@@ -5,6 +5,18 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.1.0] - 2025-12-31
+
+### Documentation
+
+- Improved and clarified documentation for `Result` extensions (`result_extension.dart`), with clearer comments and usage notes.
+- Added explanation in the docs on how to safely cast the contained value in `Result`.
+
+### Changed
+
+- Renamed the old `when` method on `Result` to `map` for consistency and clarity.
+- Added a new `when` method to `Result`, now behaving like the `when` extension for `Future` and `Stream` (callback-based, for side effects).
+
 ## [1.0.9] - 2025-09-08
 
 ### Fixed
