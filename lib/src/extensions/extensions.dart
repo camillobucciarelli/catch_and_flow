@@ -9,3 +9,9 @@ typedef SuccessCallback<T> = void Function(T value);
 ///
 /// Takes a [CustomError] representing an error that occurred during an operation.
 typedef ErrorCallback = void Function(CustomError error);
+
+/// Callback per la trasformazione di un valore di successo in map.
+typedef MapSuccessCallback<T, R> = R Function(T value);
+
+/// Callback per la trasformazione di un errore in map.
+typedef MapErrorCallback<R> = R Function(CustomError error);

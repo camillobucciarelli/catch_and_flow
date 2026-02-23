@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 
-import '../logger.dart';
+import '../../catch_and_flow.dart';
 import 'extensions.dart';
 
 /// Extensions on [Stream] to provide simplified error handling and flow control.
@@ -66,5 +66,45 @@ extension StreamExtension<T> on Stream<T> {
     }
 
     return stream.listen(successWithLogging);
+  }
+  /// Mappa ogni emissione di questo Stream in un valore di tipo [R] usando due callback:
+  /// - [success]: chiamata per ogni valore emesso
+  /// - [error]: chiamata per ogni errore emesso
+  ///
+  /// Restituisce uno Stream&lt;R&gt; con i valori prodotti dalle callback.
+  Stream<R> map<R>({
+    required MapSuccessCallback<T, R> success,
+    required MapErrorCallback<R> error,
+  }) {
+    return transform(
+      StreamTransformer<T, R>.fromHandlers(
+        handleData: (data, sink) {
+          sink.add(success(data));
+        },
+        handleError: (e, st, sink) {
+          final customError = e is CustomError
+              ? e
+              : CustomError.fromThrowable(e);
+          sink.add(error(customError));
+        },
+      ),
+    );
+  }
+
+  /// Restituisce uno stream che emette il valore di successo oppure il valore di fallback fornito dalla callback in caso di errore.
+  Stream<T> getOrElse(MapErrorCallback<T> orElse) {
+    return transform(
+      StreamTransformer<T, T>.fromHandlers(
+        handleData: (data, sink) {
+          sink.add(data);
+        },
+        handleError: (e, st, sink) {
+          final customError = e is CustomError
+              ? e
+              : CustomError.fromThrowable(e);
+          sink.add(orElse(customError));
+        },
+      ),
+    );
   }
 }

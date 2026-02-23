@@ -5,6 +5,21 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.2.0] - 2026-02-23
+
+### Added
+
+- Added `getOrElse` to `ResultExtension` to provide a fallback value when the result is an error.
+- Added `map` and `getOrElse` to `FutureExtension` for functional result transformation and fallback handling.
+- Added `map` and `getOrElse` to `StreamExtension` for per-event transformation and error fallback emission.
+- Added shared callback typedefs `MapSuccessCallback<T, R>` and `MapErrorCallback<R>` in `extensions.dart`.
+
+### Changed
+
+- Updated package version to `1.2.0`.
+- Updated `equatable` dependency from `^2.0.7` to `^2.0.8`.
+- Standardized extension imports to use the package barrel export (`catch_and_flow.dart`) where applicable.
+
 ## [1.1.0] - 2025-12-31
 
 ### Documentation

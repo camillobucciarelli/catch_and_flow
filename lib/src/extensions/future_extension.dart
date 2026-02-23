@@ -40,4 +40,33 @@ extension FutureExtension<T> on Future<T> {
       error?.call(customError);
     });
   }
+
+  /// Mappa il risultato di questo Future in un valore di tipo [R] usando due callback:
+  /// - [success]: chiamata se il Future completa con successo
+  /// - [error]: chiamata se il Future completa con errore
+  ///
+  /// Restituisce un Future&lt;R&gt; con il valore prodotto dalla callback appropriata.
+  Future<R> map<R>({
+    required MapSuccessCallback<T, R> success,
+    required MapErrorCallback<R> error,
+  }) async {
+    try {
+      final value = await this;
+      return success(value);
+    } catch (e) {
+      final customError = e is CustomError ? e : CustomError.fromThrowable(e);
+      return error(customError);
+    }
+  }
+
+  /// Restituisce il valore di successo oppure il valore di fallback fornito dalla callback in caso di errore.
+  Future<T> getOrElse(MapErrorCallback<T> orElse) async {
+    try {
+      final value = await this;
+      return value;
+    } catch (e) {
+      final customError = e is CustomError ? e : CustomError.fromThrowable(e);
+      return orElse(customError);
+    }
+  }
 }

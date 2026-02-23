@@ -46,4 +46,12 @@ extension ResultExtension<T> on Result<T> {
       error?.call($1!);
     }
   }
+
+  /// Restituisce il valore di successo oppure il valore di fallback fornito dalla callback in caso di errore.
+  T? getOrElse(MapErrorCallback<T> orElse) {
+    if (isSuccess) {
+      return $2;
+    }
+    return orElse($1!);
+  }
 }
