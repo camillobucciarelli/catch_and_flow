@@ -22,7 +22,12 @@ Stream<T> runSafetyStream<T>(
   LogLevel? logLevel,
 }) {
   return operation().asBroadcastStream().handleError((e, st) {
-    throw onErrorHandler(e, onError: onError, logLevel: logLevel);
+    throw onErrorHandler(
+      e,
+      onError: onError,
+      logLevel: logLevel,
+      stackTrace: st,
+    );
   });
 }
 
@@ -48,7 +53,9 @@ Stream<T?> runSafetyStreamNullable<T>(
     // On error, log it and emit null
     onError: (dynamic error, StackTrace stackTrace) {
       // Emit null instead of the error
-      controller.add(errorToNullHandler(logLevel)(error));
+      controller.add(
+        errorToNullHandler(error, logLevel: logLevel, stackTrace: stackTrace),
+      );
     },
     // Close the controller when the source stream is done
     onDone: () => controller.close(),

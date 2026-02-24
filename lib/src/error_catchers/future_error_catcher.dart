@@ -21,9 +21,9 @@ Future<T> runSafetyFuture<T>(
 }) async {
   try {
     return await operation();
-  } catch (e) {
+  } catch (e, st) {
     return Future<T>.error(
-      onErrorHandler(e, onError: onError, logLevel: logLevel),
+      onErrorHandler(e, onError: onError, logLevel: logLevel, stackTrace: st),
     );
   }
 }
@@ -43,7 +43,7 @@ Future<T?> runSafetyFutureNullable<T>(
 }) async {
   try {
     return await operation();
-  } catch (e) {
-    return errorToNullHandler(e, logLevel: logLevel);
+  } catch (e, st) {
+    return errorToNullHandler(e, logLevel: logLevel, stackTrace: st);
   }
 }

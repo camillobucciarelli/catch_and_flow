@@ -20,6 +20,16 @@ import '../../catch_and_flow.dart';
 /// ```
 typedef CustomErrorAdapter = dynamic Function(dynamic e);
 
+StackTrace _resolveStackTrace(dynamic error, [StackTrace? stackTrace]) {
+  if (stackTrace != null) {
+    return stackTrace;
+  }
+  if (error is Error && error.stackTrace != null) {
+    return error.stackTrace!;
+  }
+  return StackTrace.current;
+}
+
 /// Creates an error handler function for use with Future.catchError or similar asynchronous error handling mechanisms.
 ///
 /// This function creates an error handler that logs the error and transforms it into a [CustomError] object.
@@ -50,8 +60,9 @@ CustomError onErrorHandler(
   dynamic e, {
   CustomErrorAdapter? onError,
   LogLevel? logLevel,
+  StackTrace? stackTrace,
 }) {
-  logError(e, logLevel, e, e.stackTrace ?? StackTrace.current);
+  logError(e, logLevel, e, _resolveStackTrace(e, stackTrace));
   final error = onError?.call(e) ?? e;
   if (error is CustomError) {
     return error;
@@ -88,7 +99,11 @@ CustomError onErrorHandler(
 ///
 /// @param logLevel Optional log level override for this specific error handler.
 /// @return A function that handles errors by logging them and returning null.
-T? errorToNullHandler<T>(dynamic e, {LogLevel? logLevel}) {
-  logError(e, logLevel, e, e.stackTrace ?? StackTrace.current);
+T? errorToNullHandler<T>(
+  dynamic e, {
+  LogLevel? logLevel,
+  StackTrace? stackTrace,
+}) {
+  logError(e, logLevel, e, _resolveStackTrace(e, stackTrace));
   return null;
 }

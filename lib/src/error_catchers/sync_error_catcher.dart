@@ -58,9 +58,9 @@ Result<T> runSafetySync<T>(
 }) {
   try {
     return Results.success(operation());
-  } catch (e) {
+  } catch (e, st) {
     return Results.error(
-      onErrorHandler(e, onError: onError, logLevel: logLevel),
+      onErrorHandler(e, onError: onError, logLevel: logLevel, stackTrace: st),
     );
   }
 }
@@ -103,7 +103,11 @@ T? runSafetySyncNullable<T>(
 }) {
   try {
     return operation(); // Success result
-  } catch (e) {
-    return errorToNullHandler(logLevel)(e); // Error result with null value
+  } catch (e, st) {
+    return errorToNullHandler(
+      e,
+      logLevel: logLevel,
+      stackTrace: st,
+    ); // Error result with null value
   }
 }
